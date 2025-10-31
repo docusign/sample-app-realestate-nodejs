@@ -1,7 +1,7 @@
 {
     "login": {
         "title": "Welcome to the Real Estate Sample App",
-        "paragraph": "This app was designed to showcase the potential integration of the Docusign Rooms API into a RealEstate CRM. This application is open-source and all of the code is located in our GitHub repository.",
+        "paragraph": "This app was designed to showcase the potential integration of the Docusign Rooms API into a RealEstate CRM using JWT authentication. This application is open-source and all of the code is located in our GitHub repository.",
         "loginButton": "Try the App",
         "GitHub": "Go to GitHub",
         "info": {
