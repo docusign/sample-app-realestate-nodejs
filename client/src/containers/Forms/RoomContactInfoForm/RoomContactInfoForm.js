@@ -378,7 +378,8 @@ class RoomContactInfoForm extends Component {
             }
             console.log(fieldData);
             try{
-                await axios.patch(`/rooms/${this.props.roomId}`, fieldData, {withCredentials: true});
+                const apiUrl = process.env.REACT_APP_API_URL;
+                await axios.patch(`${apiUrl}/rooms/${this.props.roomId}`, fieldData, {withCredentials: true});
                 // Update parent state with new info 
                 const updatedFieldData = {...this.props.fieldData };
                 for(const key in fieldData) {
