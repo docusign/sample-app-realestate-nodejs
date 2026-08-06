@@ -4,10 +4,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session'); // https://github.com/expressjs/cookie-session
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 const helmet = require('helmet'); // https://expressjs.com/en/advanced/best-practice-security.html
 const moment = require('moment'); //https://www.npmjs.com/package/moment
-const csrf = require('csurf'); // http://expressjs.com/en/resources/middleware/csurf.html
 const path = require('path');
 const { updateToken } = require('./controllers/authController');
 
@@ -19,21 +19,25 @@ const roomsRouter = require('./routes/roomsRouter');
 
 const port = process.env.PORT || 5000;
 const maxSessionMinutes = 180;
-// const csrfProtection = csrf({ cookie: true });
+const sessionTtlMs = maxSessionMinutes * 60 * 1000;
 
 const app = express()
   .set('trust proxy', 1) // trust first proxy
   .use(helmet())
   .use(bodyParser.json())
   .use(cookieParser())
-  .use(cookieSession({
+  .use(session({
     name: 'roomApp',
-    maxAge: 1000 * 60 * 60 * 24 * 30, //1 month cookie
-    keys: [process.env.SESSION_SECRET],
-    httpOnly: true,
-    signed: true,
-    secure: false,
-    overwrite: true
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MemoryStore({ checkPeriod: sessionTtlMs }),
+    cookie: {
+      maxAge: sessionTtlMs,
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    },
   }))
 //Refresh the token if expired
 app.use(async (req, res, next) => {
