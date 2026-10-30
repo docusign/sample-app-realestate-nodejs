@@ -4,9 +4,9 @@ var axios = require('axios');
 var validator = require('validator');
 var oAuth = RoomsNodeSDK.ApiClient.OAuth;
 var restApi = RoomsNodeSDK.ApiClient.RestApi;
-var basePath = (process.env.NODE_ENV === 'prod') ?
-    restApi.Api.BasePath.PRODUCTION : restApi.BasePath.DEMO;
-var oAuthBasePath = (process.env.NODE_ENV === 'prod') ? 
+var basePath = (process.env.NODE_ENV === 'dev') ?
+    restApi.BasePath.PRODUCTION : restApi.BasePath.DEMO;
+var oAuthBasePath = (process.env.NODE_ENV === 'dev') ? 
     oAuth.BasePath.PRODUCTION : oAuth.BasePath.DEMO;
 var accountId = process.env.USER_ID;
 

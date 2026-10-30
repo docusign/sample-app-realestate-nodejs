@@ -68,9 +68,22 @@ class Login extends Component {
     */
     login = async (role) => {
         try {
+            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+            // Fetch a CSRF token bound to this session before triggering the
+            // JWT-grant flow.  The token must be echoed back in the request
+            // header so the server can verify the call originates from this SPA.
+            const csrfRes = await axios.get(`${apiUrl}/auth/csrf-token`, { withCredentials: true });
+            const csrfToken = csrfRes.data.csrfToken;
+
             //get the jwt stored in session cookie
-            const apiUrl = process.env.REACT_APP_API_URL;
-            let loginReq = await axios.get(`${apiUrl}/auth/login`);
+            let loginReq = await axios.post(
+                `${apiUrl}/auth/login`,
+                {},
+                {
+                    withCredentials: true,
+                    headers: { 'X-CSRF-Token': csrfToken },
+                }
+            );
             //if status is 210, redirect the user to the constent page
             if (loginReq.status === 210) {
                 window.location = loginReq.data;

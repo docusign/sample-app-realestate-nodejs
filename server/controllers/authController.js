@@ -155,7 +155,7 @@ const addNewOfficeToSessionIfMissing = async (req) => {
                 //continue if it is a name already exists error
                 let sameNameErrorMessage = 
                     'The office \'' + newOffice.name + '\' already exists. Please choose a different name.';
-                if(error.response.body.message !== sameNameErrorMessage) {
+                if(error?.response?.body?.message !== sameNameErrorMessage && error?.body?.message !== sameNameErrorMessage) {
                     //send the error if you are out of tries
                     if(tries === 5) {
                         throw error;
@@ -172,6 +172,14 @@ const addNewOfficeToSessionIfMissing = async (req) => {
 
 
 
+
+/**
+ * Issues a fresh CSRF token for the session.
+ * The client must call this before POSTing to /login.
+ */
+module.exports.getCsrfToken = (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+};
 
 /**
  *  Login user
