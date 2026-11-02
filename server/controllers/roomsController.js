@@ -21,7 +21,7 @@ var accountId = process.env.USER_ID;
     //see rooms api docs for detailed error messages 
 */
 exports.get_rooms = async (req, res) => {  
-    //instantiate and intialize the apiClient
+    //instantiate and initialize the apiClient
     var roomsNodeSDK = new RoomsNodeSDK.ApiClient({
         basePath: basePath,
         oAuthBasePath: oAuthBasePath
@@ -60,7 +60,7 @@ exports.create_room = async (req, res) => {
     var rolesApi = new RoomsNodeSDK.RolesApi(roomsNodeSDK);
 
     //The following commented code can be used to view the available countries and states
-    //currently suppored by the Rooms API
+    //currently supported by the Rooms API
     //get all the possible Countries
     // try{
     //   let coutriesurl = basePath + '/v2/countries';
@@ -154,9 +154,9 @@ exports.edit_room = async (req, res) => {
   const fieldData = {};
   fieldData.body = {};
   fieldData.body.data = {};
-  //build field data while sanatizing
+  //build field data while sanitizing
   for(const key in req.body) {
-    //skip empty and null values and sanatize strings
+    //skip empty and null values and sanitize strings
     if(!req.body[key]) continue;
     fieldData.body.data[key] = (typeof req.body[key] === "string") ? validator.escape(req.body[key]) : req.body[key] 
   }

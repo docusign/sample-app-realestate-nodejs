@@ -28,7 +28,7 @@ const getLeads = () => {
     //load the leads from json file to local storage
     return localForage.getItem('leads')
         .then(async (leads) => {
-            //if there are now leads in local storage, copy test leads
+            //if there are no leads in local storage, copy test leads
             if (leads === null) {
                 leads = jsonLeads.leads;
                 await localForage.setItem('leads', leads);
@@ -50,7 +50,7 @@ class Leads extends Component {
         Modal toggle handler which controls
         whether or not the modal is displayed
 
-        Paramaters:
+        Parameters:
             form (String) either 'room' or 'contact' for which form is being 
     */
     modalToggleHandler = (form) => {
@@ -78,9 +78,9 @@ class Leads extends Component {
     /*
     Modal toggle handler which controls
     whether or not the Create Room Form is displayed and sets
-    the index of the selectedLead to the index paramater. 
+    the index of the selectedLead to the index parameter. 
 
-    Paramaters:
+    Parameters:
         index: (Integer) the index of the room in local storage
     */
     createRoomButtonHandler = (index) => {

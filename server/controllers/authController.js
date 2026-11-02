@@ -1,7 +1,7 @@
 
 'use strict';
 require('dotenv').config();  //get access to environment variables
-const moment = require('moment'); //libarary used to set and determine a tokens expiration date
+const moment = require('moment'); //library used to set and determine a tokens expiration date
 const fs = require('fs');  //library used to parse the RSA key
 const crypto = require('crypto');
 const RoomsNodeSDK = require('docusign-rooms'); //Rooms API SDK
@@ -32,7 +32,7 @@ module.exports.updateToken = async (req) => {
         oAuth.Scope.ROOMS_WRITE,
         oAuth.Scope.ROOMS_READ
     ];
-    //get an api client and set it's base path
+    //get an api client and set its base path
     //remember to switch between DEV and PROD deployments
     var roomsNodeSDK = new RoomsNodeSDK.ApiClient({
         basePath: basePath,
@@ -70,7 +70,7 @@ const getToken = async (req) => {
         oAuth.Scope.ROOMS_WRITE,
         oAuth.Scope.ROOMS_READ
     ];
-    //get an api client and set it's base path
+    //get an api client and set its base path
     //remember to switch between DEV and PROD deployments
     var roomsNodeSDK = new RoomsNodeSDK.ApiClient({
         basePath: basePath,

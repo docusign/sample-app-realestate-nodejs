@@ -13,7 +13,7 @@ import classes from './Form.module.css';
         subTitle (string) subtitle
         update: (function (updatedFormData, updatedFormIsValid)) Updates the state of the parent form
         format: (string) the layout of the inputs - defaults to linear
-        formData: (object) Data of dynnamically loaded input elemenets
+        formData: (object) Data of dynamically loaded input elements
             { 
                 "input_element_name": {
                       inputType: (String) the type of input element
@@ -26,7 +26,7 @@ import classes from './Form.module.css';
                     },
                     valid: (Boolean) whether or not this input element is currently valid,
                     touched: (Boolean) whether or not the user has focused this input element before,
-                    options (optional, only required for drowdown): 
+                    options (optional, only required for dropdown): 
                         [Object] -> Object in the form {value: display_name for dropdown option} 
                 }
             }

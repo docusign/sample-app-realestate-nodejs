@@ -8,7 +8,7 @@ import classes from './RoomPropertyInfoForm.module.css';
 
 
 /*
-    This component encapsulated the form used by the Leads container
+    This component encapsulates the form used by the Leads container
     to create new rooms from a lead.
     Props:
         lead (Object): The lead this room is being created for
