@@ -173,7 +173,7 @@ exports.edit_room = async (req, res) => {
     res.status(200).send('Room updated successfully');
   } catch(error) {
     console.log(error);
-    res.status(error.statusCode || error.status || 500).send(error.message);
+    res.status(error.statusCode || error.status || 500).send('Error updating room');
   }
 }
 
