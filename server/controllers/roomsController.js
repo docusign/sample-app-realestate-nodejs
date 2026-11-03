@@ -135,7 +135,7 @@ exports.create_room = async (req, res) => {
       res.status(200).json(response);
     } catch(error){
       console.log(error);
-      res.status(error.statusCode || error.status || 500).send(error.message);
+      res.status(error.statusCode || error.status || 500).send('Unable to create room.');
     }
 }
 
