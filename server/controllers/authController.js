@@ -83,7 +83,8 @@ const getToken = async (req) => {
             process.env.USER_ID, scopes, rsaKey, jwtLifeSec);
     } catch(error) {
         //Need to add redirect return here, but need to deal with cors error first
-        if (error.response.body.error && error.response.body.error === 'consent_required') {
+        const errorBody = (error.response && error.response.body) || error.body;
+        if (errorBody && errorBody.error === 'consent_required') {
             throw new Error("Consent required");
        } else {
             throw error;
@@ -207,12 +208,12 @@ module.exports.login = async (req, res, next) => {
             let consent_scopes = "impersonation%20signature%20dtr.company.write%20dtr.company.read%20dtr.rooms.write%20dtr.rooms.read",
             consent_url = `${process.env.DS_OAUTH_SERVER}/oauth/auth?response_type=code&` +
                 `scope=${consent_scopes}&client_id=${process.env.INTEGRATION_KEY}&` +
-                `redirect_uri=${process.env.BACKEND_APP_URL}`;
-            res.status(210).send(consent_url);
+                `redirect_uri=${process.env.BACKEND_APP_URL || process.env.FRONTEND_APP_URL}`;
+            return res.status(210).send(consent_url);
         }
         //send other error statys codes and messages
         console.log(error);
-        res.status(error.status).send(error.message);
+        res.status(error.statusCode || error.status || 500).send(error.message);
     }
 }
 
