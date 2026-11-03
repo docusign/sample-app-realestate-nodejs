@@ -4,9 +4,9 @@ var axios = require('axios');
 var validator = require('validator');
 var oAuth = RoomsNodeSDK.ApiClient.OAuth;
 var restApi = RoomsNodeSDK.ApiClient.RestApi;
-var basePath = (process.env.NODE_ENV === 'dev') ?
+var basePath = (process.env.NODE_ENV === 'prod') ?
     restApi.BasePath.PRODUCTION : restApi.BasePath.DEMO;
-var oAuthBasePath = (process.env.NODE_ENV === 'dev') ? 
+var oAuthBasePath = (process.env.NODE_ENV === 'prod') ? 
     oAuth.BasePath.PRODUCTION : oAuth.BasePath.DEMO;
 var accountId = process.env.USER_ID;
 
@@ -42,7 +42,7 @@ exports.get_rooms = async (req, res) => {
       .catch(function (error) {
         if (error) {
             console.log(error);
-            res.status(error.status).send(error.message);
+            res.status(error.statusCode || error.status || 500).send(error.message);
         }
       }); 
 }
@@ -135,7 +135,7 @@ exports.create_room = async (req, res) => {
       res.status(200).json(response);
     } catch(error){
       console.log(error);
-      res.status(error.status).send(error.message);
+      res.status(error.statusCode || error.status || 500).send(error.message);
     }
 }
 
@@ -173,7 +173,7 @@ exports.edit_room = async (req, res) => {
     res.status(200).send('Room updated successfully');
   } catch(error) {
     console.log(error);
-    res.status(error.status).send(error.message);
+    res.status(error.statusCode || error.status || 500).send(error.message);
   }
 }
 
